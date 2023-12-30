@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGICWORDLE</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    </head>
+<body>
+    <header>
+        <h1 id = "title">MAGICWORDLE</h1>
+        <nav>
+            <ul>
+                <li><a href="principal.html">Inicio</a></li>
+                <li><a href="juego.html">Juego</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        
+
+    </header>
+    <main>
+        <table id = "tablaJuego">
+
+        </table>
+        <div id="teclado">
+            <div id ="tecladofila1">
+                <button onclick="presionarTecla('q')">q</button>
+                <button onclick="presionarTecla('w')">w</button>
+                <button onclick="presionarTecla('e')">e</button>
+                <button onclick="presionarTecla('r')">r</button>
+                <button onclick="presionarTecla('t')">t</button>
+                <button onclick="presionarTecla('y')">y</button>
+                <button onclick="presionarTecla('u')">u</button>
+                <button onclick="presionarTecla('i')">i</button>
+                <button onclick="presionarTecla('o')">o</button>
+                <button onclick="presionarTecla('p')">p</button>
+
+            </div>
+            <div id ="tecladofila2">
+                <button onclick="presionarTecla('a')">a</button>
+                <button onclick="presionarTecla('s')">s</button>
+                <button onclick="presionarTecla('d')">d</button>
+                <button onclick="presionarTecla('f')">f</button>
+                <button onclick="presionarTecla('g')">g</button>
+                <button onclick="presionarTecla('h')">h</button>
+                <button onclick="presionarTecla('j')">j</button>
+                <button onclick="presionarTecla('k')">k</button>
+                <button onclick="presionarTecla('l')">l</button>
+                <button onclick="presionarTecla('ñ')">ñ</button>
+
+            </div>
+            <div id ="tecladofila3">
+                <button onclick="presionarTecla('Backspace')">⌫</button>
+                <button onclick="presionarTecla('z')">z</button>
+                <button onclick="presionarTecla('x')">x</button>
+                <button onclick="presionarTecla('c')">c</button>
+                <button onclick="presionarTecla('v')">v</button>
+                <button onclick="presionarTecla('b')">b</button>
+                <button onclick="presionarTecla('n')">n</button>
+                <button onclick="presionarTecla('m')">m</button>
+                <button onclick="presionarTecla('Enter')">⏎</button>
+            </div>
+        </div>
+
+    </main>
+    <script src="interacciones.js"></script>
+</body>
+
+</html>
