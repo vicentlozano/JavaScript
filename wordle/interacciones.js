@@ -1,6 +1,8 @@
 let palabraAleatoria;
 let filaActual = 0;
+reiniciarJuego = false
 function juego(){
+    filaActual = 0;
     palabraAleatoria = elejirPalabra();
     let tablaJuego = document.getElementById("tablaJuego");
     tablaJuego.innerHTML = ''; // Borrar la tabla
@@ -43,6 +45,7 @@ function selectorFila(){
 function elejirPalabra(){
     const palabras = ["valor","pesca","calza","volar"];
     let indiceAleatorio = Math.floor(Math.random() * palabras.length);
+    palabras[indiceAleatorio] = palabras[indiceAleatorio].toUpperCase();
     return palabras[indiceAleatorio];
 }
 
@@ -55,7 +58,8 @@ function presionarTecla(tecla){
             else{
             idCelda -= 1;
             let celda = document.querySelector('#celda' + idCelda);
-            celda.textContent = "";}}
+            celda.textContent = "";
+            celda.style.backgroundColor = "";}}
         else if (idCelda == -1) {
             let celda;
             switch(filaActual){
@@ -63,38 +67,47 @@ function presionarTecla(tecla){
                     idCelda = 4;
                     celda = document.querySelector('#celda' + idCelda);
                     celda.textContent = "";
+                    celda.style.backgroundColor = "";
                     break;
                 case 1:
                     idCelda = 9;
                     celda = document.querySelector('#celda' + idCelda);
                     celda.textContent = "";
+                    celda.style.backgroundColor = "";
                     break;
                 case 2:
                     idCelda = 14;
                     celda = document.querySelector('#celda' + idCelda);
                     celda.textContent = "";
+                    celda.style.backgroundColor = "";
                     break;
                 case 3:
                     idCelda = 19;
                     celda = document.querySelector('#celda' + idCelda);
                     celda.textContent = "";
+                    celda.style.backgroundColor = "";
                     break;
                 case 4:
                     idCelda = 24;
                     celda = document.querySelector('#celda' + idCelda);
                     celda.textContent = "";
+                    celda.style.backgroundColor = "";
                     break;
                 case 5:
                     idCelda = 29;
                     celda = document.querySelector('#celda' + idCelda);
                     celda.textContent = "";
+                    celda.style.backgroundColor = "";
                     break;
             }
         
     }}
     else if(tecla =="Enter"){
+        colorearCeldas(palabraAleatoria);
         comprovarPalabra(palabraAleatoria);
-        filaActual +=1;
+        
+      
+       
     }
     else{
         let idCelda = queCeldaPintar();
@@ -103,6 +116,8 @@ function presionarTecla(tecla){
         }
         let celda = document.querySelector('#' + idCelda);
         celda.textContent = tecla;
+        celda.style.backgroundColor = "gray"; // Cambiar el color de fondo de la celda a gris
+        celda.style.color = "white"; // Cambiar el color del texto a blanco
     }
 }
 
@@ -120,7 +135,46 @@ function queCeldaPintar(){
 }
 
 
+function colorearCeldas(palabraAleatoria){
+    let arrayPalbra = palabraAleatoria.split("");
+    let linea = selectorFila();
+    for (let i = 0; i < linea.length; i++){
+        let celda = linea[i];
+        if(celda.textContent == arrayPalbra[i]){
+            celda.style.color = "white";
+            celda.style.backgroundColor = "green";
+        }
+        else if(celda.textContent != arrayPalbra[i] && arrayPalbra.includes(celda.textContent)){
+            celda.style.color = "white";
+            celda.style.backgroundColor = "khaki";
+        }
+        else{
+            celda.style.color = "white";
+            celda.style.backgroundColor = "red";
+        }
+        
+    }
+    
+    
+   
 
+
+}
+
+function mostrarModal(texto) {
+    $('#modal-text').text(texto);
+    $('#modal').css('opacity', 0).show().animate({opacity: 1}, 500);
+    setTimeout(function() {
+        $('#modal').animate({opacity: 0}, 500, function() {
+            $(this).hide();
+        });
+    }, 3000); // El modal se ocultará después de 3 segundos
+}
+function todasLasCeldasSonVerdes() {
+    let celdas = selectorFila();
+    let celdasArray = Array.from(celdas); // Convertir NodeList a Array
+    return celdasArray.every(celda => celda.style.backgroundColor === "green");
+}
 function comprovarPalabra(palabraAleatoria){
     let arrayPalabra = palabraAleatoria.split("");
     let linea = selectorFila();
@@ -131,18 +185,31 @@ function comprovarPalabra(palabraAleatoria){
     }
     palabraAleatoria = arrayPalabra.join('');
     respuesta = respuesta.join('');
+    respuesta = respuesta.toUpperCase();
     if (palabraAleatoria == respuesta){
-        alert("CORRECTO!");
-        juego();
+        if(todasLasCeldasSonVerdes()){
+            
+            mostrarModal("Has ganado!");
+            setTimeout(juego, 2000); // Esperar 2 segundos antes de reiniciar el juego
+           
+            return;
+        }
     }
     else{
         if(filaActual == 5){
-            alert("Has perdido, la palabra era: " + palabraAleatoria);
+        mostrarModal("Has perdido, la palabra era: " + palabraAleatoria);
+            setTimeout(juego, 2000); // Esperar 2 segundos antes de reiniciar el juego
             juego();
+            return;
+            
         }else{
-        alert("La palabra no es correcta, vuelve a intentarlo!")}
+        mostrarModal("La palabra no es correcta, vuelve a intentarlo!")
+        filaActual +=1;}
+        
+        
         
     }
+   
 }
 
 juego();
