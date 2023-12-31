@@ -103,12 +103,13 @@ function presionarTecla(tecla){
         
     }}
     else if(tecla =="Enter"){
+        if(lineaCompleta()){
         colorearCeldas(palabraAleatoria);
         comprovarPalabra(palabraAleatoria);
-        
-      
-       
-    }
+        }
+        else{
+            mostrarModal("La linea no esta completa");
+        }}
     else{
         let idCelda = queCeldaPintar();
         if (idCelda == -1) {
@@ -133,7 +134,20 @@ function queCeldaPintar(){
     }
     return -1;
 }
+// Asegúrate de que la función presionarTecla() esté definida antes de este punto
 
+document.addEventListener('keydown', function(event) {
+    let tecla = event.key.toUpperCase();
+    if (tecla.length === 1 && tecla.match(/[A-ZÑ]/i)) { // Si la tecla es una letra
+        presionarTecla(tecla);
+    } else if (tecla === 'BACKSPACE') { // Si la tecla es Backspace
+        presionarTecla('Backspace');
+    } else if (tecla === 'ENTER') { // Si la tecla es Enter
+        presionarTecla('Enter');
+    }
+});
+
+// El resto de tu código JavaScript va aquí
 
 function colorearCeldas(palabraAleatoria){
     let arrayPalbra = palabraAleatoria.split("");
@@ -194,7 +208,12 @@ function mostrarModal(texto) {
         $('#modal').animate({opacity: 0}, 500, function() {
             $(this).hide();
         });
-    }, 3000); // El modal se ocultará después de 3 segundos
+    }, 1500); // El modal se ocultará después de 3 segundos
+}
+function lineaCompleta(){
+    let celdas = selectorFila();
+    let celdasArray = Array.from(celdas); // Convertir NodeList a Array
+    return celdasArray.every(celda => celda.textContent !== "");
 }
 function todasLasCeldasSonVerdes() {
     let celdas = selectorFila();
