@@ -160,7 +160,33 @@ function colorearCeldas(palabraAleatoria){
 
 
 }
+function mostrarConfeti() {
+    var end = Date.now() + (2 * 1000);
 
+    // go Buckeyes!
+    var colors = ['#bb0000', '#ffffff'];
+
+    (function frame() {
+        confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+        });
+        confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
 function mostrarModal(texto) {
     $('#modal-text').text(texto);
     $('#modal').css('opacity', 0).show().animate({opacity: 1}, 500);
@@ -190,6 +216,7 @@ function comprovarPalabra(palabraAleatoria){
         if(todasLasCeldasSonVerdes()){
             
             mostrarModal("Has ganado!");
+            mostrarConfeti();
             setTimeout(juego, 2000); // Esperar 2 segundos antes de reiniciar el juego
            
             return;

@@ -1,0 +1,56 @@
+html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGICWORDLE</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.js"></script>
+</head>
+<body>
+    <!-- El resto de tu código HTML va aquí -->
+</body>
+</html>
+
+
+
+javascript:
+function mostrarConfeti() {
+    var end = Date.now() + (2 * 1000);
+
+    // go Buckeyes!
+    var colors = ['#bb0000', '#ffffff'];
+
+    (function frame() {
+        confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+        });
+        confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
+
+// Llamada a la función mostrarConfeti() cuando el usuario adivina correctamente la palabra
+if (palabraAleatoria == respuesta){
+    if(todasLasCeldasSonVerdes()){
+        mostrarModal("Has ganado!");
+        mostrarConfeti(); // Llama a la función aquí
+        setTimeout(juego, 2000); // Esperar 2 segundos antes de reiniciar el juego
+        return;
+    }
+}
